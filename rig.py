@@ -6,11 +6,40 @@ from mcpi.minecraft import Minecraft
 # Create the Minecraft game
 mc = Minecraft.create()
 
+# Plant dictionary
+PLANT_KINDS = {
+    # "Acacia": 6,
+    "Carrots": 141,
+    "Allium": 38,
+    "Cactus": 81,
+    "Jungle": 6,
+}
 
-def growTree(x, y, z):
+
+def growPlant(x, y, z, blockType=6):
     # Creates a tree at the coordinates given
-    blockType = 6
     mc.setBlock(x, y, z, blockType, 3)
+
+
+# Carrots not working, TO DO
+def grow(count, dim, kind):
+    blockType = PLANT_KINDS.get(kind)
+    count, dim = int(count), int(dim)
+    pos = mc.player.getTilePos()
+    x = pos.x
+    y = pos.y
+    z = pos.z
+    for num in range(count):
+        growPlant(
+            x + random.randint(-dim, dim),
+            y,
+            z + random.randint(-dim, dim),
+            blockType=blockType)
+
+
+def list_grow():
+    plants = ','.join(PLANT_KINDS.keys())
+    mc.postToChat(plants)
 
 
 def forest(count, dim):
@@ -20,7 +49,7 @@ def forest(count, dim):
     y = pos.y
     z = pos.z
     for num in range(count):
-        growTree(
+        growPlant(
             x + random.randint(-dim, dim),
             y,
             z + random.randint(-dim, dim))
