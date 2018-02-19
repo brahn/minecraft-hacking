@@ -17,11 +17,20 @@ PLANT_KINDS = {
 
 
 def speed_build(length, width, height, blockType):
-    pass
-    pos = mc.player.getpos()
+    length, width, height, blockType = map(
+        int, [length, width, height, blockType])
+    pos = mc.player.getPos()
     x = pos.x
     y = pos.y
     z = pos.z
+    mc.setBlocks(x, y, z, x + width, y + height, z + length, blockType)
+    length = length - 2
+    height = height - 2
+    width = width - 2
+    blockType = 0
+    x = x + 1
+    y = y + 1
+    z = z + 1
     mc.setBlocks(x, y, z, x + width, y + height, z + length, blockType)
 
 
