@@ -16,15 +16,23 @@ PLANT_KINDS = {
 }
 
 
+def speed_build(length, width, height, blockType):
+    pass
+    pos = mc.player.getpos()
+    x = pos.x
+    y = pos.y
+    z = pos.z
+    mc.setBlocks(x, y, z, x + width, y + height, z + length, blockType)
+
+
 def growPlant(x, y, z, blockType=6):
     # Creates a tree at the coordinates given
     mc.setBlock(x, y, z, blockType, 3)
 
 
 # Carrots not working, TO DO
-def grow(count, dim, kind):
-    blockType = PLANT_KINDS.get(kind)
-    count, dim = int(count), int(dim)
+def grow(count, dim, blockType):
+    count, dim, blockType = int(count), int(dim), int(blockType)
     pos = mc.player.getTilePos()
     x = pos.x
     y = pos.y
@@ -55,6 +63,15 @@ def forest(count, dim):
             z + random.randint(-dim, dim))
 
 
+def bw():
+    mc.postToChat("Prepare for battle!")
+    time.sleep(60)
+    blockHits = mc.events.pollBlockHits()
+    print("block hits: " + str(blockHits))
+    n = len(blockHits)
+    mc.postToChat("your score is " + str(n))
+
+
 # Game loop
 while True:
     time.sleep(.2)
@@ -70,3 +87,4 @@ while True:
         print(args)
         function = getattr(sys.modules[__name__], command)
         args = function(*args)
+
